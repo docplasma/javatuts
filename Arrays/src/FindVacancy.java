@@ -26,10 +26,10 @@ public class FindVacancy {
 			out.print(roomNum);
 			out.print("?");
 			guests[roomNum] = keyboard.nextInt();
-			PrintStream listout = new PrintStream("src/resources/GuestList.txt");
+			PrintStream listOut = new PrintStream("src/resources/GuestList.txt");
 			for (roomNum=0; roomNum<10;roomNum++) {
-				listout.print(guests[roomNum]);
-				listout.print(" ");
+				listOut.print(guests[roomNum]);
+				listOut.print(" ");
 			}
 			
 		}
