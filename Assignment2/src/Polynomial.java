@@ -1,10 +1,12 @@
 public class Polynomial {
 
 	
+	
 	//-----Data Members
 	private char character;
 	private int exponent;
 	private int coefficient;
+	private StringBuilder sb;
 	
 	
 	//-----Class Constructor
@@ -30,25 +32,40 @@ public class Polynomial {
 	}
 	
 	//-----get/set
-	char getCharacter() {
+	public char getCharacter() {
 		return character;
 	}
-	int getCoefficient() {
+	public int getCoefficient() {
 		return coefficient;
 	}
-	int getExponent() {
+	public int getExponent() {
 		return exponent;
 	}
-	void setCharacter(char x) {
+	public Polynomial setCharacter(char x) {
 		character = x;
+		return this;
 	}
-	void setCoefficient(int y) {
-		exponent = y;
+	public Polynomial setCoefficient(int y) {
+		coefficient = y;
+		return this;
 	}
-	void setExponent(int z) {
+	public Polynomial setExponent(int z) {
 		exponent = z;
+		return this;
 	}
-	
+	public String toString() {
+		sb = new StringBuilder();
+		
+		if (this.getExponent() !=0) {
+			sb.append(getCoefficient());
+			sb.append(getCharacter());
+			sb.append(getExponent());
+		}
+		else {
+			sb.append((int)getCoefficient());
+		}
+		return sb.toString();
+	}
 		
 	
 }
