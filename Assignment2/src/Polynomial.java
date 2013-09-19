@@ -53,6 +53,8 @@ public class Polynomial {
 		exponent = z;
 		return this;
 	}
+	
+	//-----toString
 	public String toString() {
 		sb = new StringBuilder();
 		
