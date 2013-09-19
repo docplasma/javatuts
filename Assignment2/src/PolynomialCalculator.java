@@ -1,6 +1,7 @@
 import static java.lang.System.out;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 
 public class PolynomialCalculator {
 
@@ -8,13 +9,14 @@ public class PolynomialCalculator {
 		
 		Polynomial[] expression1 = new Polynomial[2];
 		Polynomial[] expression2 = new Polynomial[2];
-		Polynomial[] result = new Polynomial[4];
-
-		expression1[0] = new Polynomial(1,1);
-		expression1[1] = new Polynomial(1,0);
 		
-		expression2[0] = new Polynomial(1,1);
-		expression2[1] = new Polynomial(1,0);
+		PolynomialMath polymath = new PolynomialMath();
+		
+		expression1[0] = new Polynomial(polymath.getRandomNum(),1);
+		expression1[1] = new Polynomial(polymath.getRandomNum(),0);
+		
+		expression2[0] = new Polynomial(polymath.getRandomNum(),1);
+		expression2[1] = new Polynomial(polymath.getRandomNum(),0);
 		
 		
 		
@@ -29,41 +31,46 @@ public class PolynomialCalculator {
 				k++; //Increments temp to hold the next polynomial
 			}
 		}
-		ArrayList<Polynomial> buffer = new ArrayList<Polynomial>(k);
+
+		ArrayList<Polynomial> result = new ArrayList<Polynomial>(k);
 		k=0;
-		for (int j=0; j<sizeOfExpressions; j++) {
-			buffer.add(k, new Polynomial(0,0));
-			for(int i=0; i<sizeOfExpressions; i++) {
-				if (temp.get(j).getExponent() == temp.get(i).getExponent()) {
-					//if (i==0) {
-						//buffer[k].setCoefficient(temp[i].getCoefficient());
-					//}
-					buffer.get(k).setExponent(temp.get(j).getExponent());
-					buffer.get(k).setCoefficient(buffer.get(k).getCoefficient()+temp.get(k).getCoefficient());
-					temp.remove(i);
-					i--;//The list's index is decremented so the for counter's increment must be offset
+		while (!temp.isEmpty()) {
+			result.add(k, new Polynomial(temp.get(0).getCoefficient(),temp.get(0).getExponent()));
+			temp.remove(0);
+			Iterator<Polynomial> iterator = result.iterator();
+			for (int i=0;i<temp.size();i++) {
+				if (temp.get(i).getExponent() == result.get(k).getExponent()) {
+					result.get(k).setCoefficient(result.get(k).getCoefficient() + temp.get(i).getCoefficient());
+					temp.get(i).setCoefficient(0).setExponent(0);
+				}
+			}
+			/*if (!temp.isEmpty()) {
+				while (temp.get(0).getCoefficient() == 0 && temp.get(0).getExponent() == 0) {
+					temp.remove(0);
+				}
+			}*/
+			while(iterator.hasNext()) {
+				if (iterator.next().getCoefficient() == 0) {
+					iterator.remove();
 				}
 			}
 			k++;
 		}
-		
-		//result = buffer;
-		for (int i=0; i<k/*result.length*/;i++) {
-			out.print(buffer.get(i).getCoefficient());
-			out.print(buffer.get(i).getCharacter());
-			out.print("^");
-			out.print(buffer.get(i).getExponent());
-			if (i != k/*result.length*/-1) {
-				out.print(" + ");
+		/*
+		while (result.get(delCounter) != result.get(k-1)) {
+			if (result.get(delCounter).getCoefficient() == 0) {
+				result.remove(delCounter);
 			}
-		}
-		out.println("\n");
-		for (int i=0; i<k/*result.length*/;i++) {
-			out.print(buffer.get(i).toString());
-			if (i != k/*result.length*/-1) {
+			else {
+				delCounter++;
+			}
+			
+		}*/
+		for (int i=0; i<result.size(); i++) {
+			out.print(result.get(i).toString());
+			if (i != result.size()-1) {
 				out.print(" + ");
 			}
 		}
 	}
-
 }

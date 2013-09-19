@@ -59,6 +59,7 @@ public class Polynomial {
 		if (this.getExponent() !=0) {
 			sb.append(getCoefficient());
 			sb.append(getCharacter());
+			sb.append("^");
 			sb.append(getExponent());
 		}
 		else {
