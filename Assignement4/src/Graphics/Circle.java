@@ -55,16 +55,14 @@ public Circle(int xLimit, int yLimit) {
 	
 	private boolean positionOutOfBounds(AtomicInteger pos, AtomicInteger velocity,  int start, int end) {
 		
-		if (pos.get() - diameter/2 < start) {
+		if (pos.get() < start) {
 			pos.set(start - pos.get()) ;
 			velocity.set(velocity.get() * -1);
-			System.out.println("The velocity inside bounds is: " + velocity);
 			return true;
 		}
-		else if (pos.get() + diameter/2 > end) {
+		else if (pos.get() + diameter > end) {
 			pos.set(pos.get() * 2 - end);
 			velocity.set(velocity.get() * -1);
-			System.out.println("The velocity inside bounds is: " + velocity);
 			return true;
 		}
 		
@@ -77,10 +75,7 @@ public Circle(int xLimit, int yLimit) {
 		y.set(y.get() + yVelocity.get());
 		
 		positionOutOfBounds(x, xVelocity, xStart, xEnd);
-		System.out.println("The xVelocity outside bounds is: " + xVelocity);
 		positionOutOfBounds(y, yVelocity, yStart, yEnd);
-		System.out.println("The yVelocity outside bounds is: " + yVelocity);
-		
 	}
 
 	//-----Getters/Setters
@@ -138,6 +133,6 @@ public Circle(int xLimit, int yLimit) {
 	}
 	
 	public String toString() {
-		return "xVelocity: " + getXVelocity() + " yVelocity: "  + getYVelocity() + " Position: (" + getX() + "," + getY() + ")";
+		return "xVelocity: " + getXVelocity() + " yVelocity: "  + getYVelocity() + " Position: (" + getX() + "," + getY() + ") " + " Diameter: " +  getDiameter() ;
 	}
 }
