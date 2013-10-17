@@ -17,12 +17,6 @@ public class CircleFrame extends JFrame {
 	private Circle circle4;
 	private Circle circle5;
 	
-	/*private CircleLoadWorker thread1;
-	private CircleLoadWorker thread2;
-	private CircleLoadWorker thread3;
-	private CircleLoadWorker thread4;
-	private CircleLoadWorker thread5;*/
-	
 	public CircleFrame() {
 	}
 	
