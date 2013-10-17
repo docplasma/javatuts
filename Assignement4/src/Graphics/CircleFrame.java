@@ -20,7 +20,7 @@ public class CircleFrame extends JFrame {
 	public CircleFrame() {
 	}
 	
-	public CircleFrame(String title, Circle circle1, Circle circle2, Circle circle3, Circle circle4, Circle circle5) {
+	public CircleFrame(String title, Circle circle1/*, Circle circle2, Circle circle3, Circle circle4, Circle circle5*/) {
 		super(title);
 		this.circle1 = circle1;
 		this.circle2 = circle2;
@@ -38,7 +38,7 @@ public class CircleFrame extends JFrame {
 		g2d.setColor(circle1.getColor());
 		g2d.fill(circle1.getCircle());
 				
-		g2d.setColor(circle2.getColor());
+		/*g2d.setColor(circle2.getColor());
 		g2d.fill(circle2.getCircle());
 		
 		g2d.setColor(circle3.getColor());
@@ -48,6 +48,6 @@ public class CircleFrame extends JFrame {
 		g2d.fill(circle4.getCircle());
 		
 		g2d.setColor(circle5.getColor());
-		g2d.fill(circle5.getCircle());
+		g2d.fill(circle5.getCircle());*/
 	}	
 }

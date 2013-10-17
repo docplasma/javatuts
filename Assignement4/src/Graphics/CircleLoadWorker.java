@@ -20,6 +20,7 @@ public class CircleLoadWorker extends SwingWorker<Circle, Object> {
 	
 	public CircleLoadWorker(Circle circle, int xEnd, int yEnd) {
 		
+		
 		this.circle = circle;
 		
 		xStart = 0;
