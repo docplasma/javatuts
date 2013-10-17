@@ -4,28 +4,29 @@ import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.geom.Ellipse2D;
 import java.util.Random;
+import java.util.concurrent.atomic.AtomicInteger;
 
 import javax.swing.JPanel;
 
 public class Circle extends JPanel {
 
 	private int diameter;
-	private Integer x;
-	private Integer y;
+	private AtomicInteger x;
+	private AtomicInteger y;
 	private Color color;
-	private Integer xVelocity;
-	private Integer yVelocity;
+	private AtomicInteger xVelocity;
+	private AtomicInteger yVelocity;
 	Random rand;
 	
 	public Circle() {
 		
 		Random rand = new Random();
 		diameter = rand.nextInt(4)*2;
-		x = rand.nextInt(500);
-		y = rand.nextInt(500);
+		x.set(rand.nextInt(500));
+		y.set(rand.nextInt(500));
 		color = ColorPicker.getColor(rand.nextInt(100));
-		xVelocity = rand.nextInt(20);
-		yVelocity = rand.nextInt(20);
+		xVelocity.set(rand.nextInt(20));
+		yVelocity.set(rand.nextInt(20));
 				
 	}
 	
@@ -33,31 +34,37 @@ public Circle(int xLimit, int yLimit) {
 		
 		Random rand = new Random();
 		int scaledDiameter = (int)Math.floor(xLimit * yLimit * 0.001);
+		x = new AtomicInteger();
+		y = new AtomicInteger();
+		xVelocity = new AtomicInteger();
+		yVelocity = new AtomicInteger();
 		diameter = rand.nextInt(scaledDiameter);
-		x = rand.nextInt(xLimit);
-		y = rand.nextInt(yLimit);
+		x.set(rand.nextInt(xLimit));
+		y.set(rand.nextInt(yLimit));
 		color = ColorPicker.getColor(rand.nextInt(100));
-		xVelocity = rand.nextInt(5);
-		yVelocity = rand.nextInt(5);
+		xVelocity.set(rand.nextInt(20)-10);
+		yVelocity.set(rand.nextInt(20)-10);
 				
 	}
 	
 	//-----Methods
 	public void draw (Graphics page) {
 		page.setColor(color);
-		page.fillOval(x, y, diameter, diameter);
+		page.fillOval(x.get(), y.get(), diameter, diameter);
 	}
 	
-	private boolean positionOutOfBounds(Integer pos, Integer velocity,  int start, int end) {
+	private boolean positionOutOfBounds(AtomicInteger pos, AtomicInteger velocity,  int start, int end) {
 		
-		if (pos - diameter < start) {
-			pos = start - pos;
-			velocity = velocity * -1;
+		if (pos.get() - diameter/2 < start) {
+			pos.set(start - pos.get()) ;
+			velocity.set(velocity.get() * -1);
+			System.out.println("The velocity inside bounds is: " + velocity);
 			return true;
 		}
-		else if (pos + diameter > end) {
-			pos = pos * 2 - end;
-			velocity = velocity * -1;
+		else if (pos.get() + diameter/2 > end) {
+			pos.set(pos.get() * 2 - end);
+			velocity.set(velocity.get() * -1);
+			System.out.println("The velocity inside bounds is: " + velocity);
 			return true;
 		}
 		
@@ -66,10 +73,13 @@ public Circle(int xLimit, int yLimit) {
 	
 	public void updatePosition(int xStart, int xEnd, int yStart, int yEnd) {
 		
-		x = x + xVelocity;
+		x.set(x.get() + xVelocity.get());
+		y.set(y.get() + yVelocity.get());
 		
 		positionOutOfBounds(x, xVelocity, xStart, xEnd);
+		System.out.println("The xVelocity outside bounds is: " + xVelocity);
 		positionOutOfBounds(y, yVelocity, yStart, yEnd);
+		System.out.println("The yVelocity outside bounds is: " + yVelocity);
 		
 	}
 
@@ -83,19 +93,19 @@ public Circle(int xLimit, int yLimit) {
 	}
 
 	public int getX() {
-		return x;
+		return x.get();
 	}
 
 	public void setX(int x) {
-		this.x = x;
+		this.x.set(x);
 	}
 
 	public int getY() {
-		return y;
+		return y.get();
 	}
 
 	public void setY(int y) {
-		this.y = y;
+		this.y.set(y);
 	}
 
 	public Color getColor() {
@@ -107,23 +117,27 @@ public Circle(int xLimit, int yLimit) {
 	}
 
 	public int getXVelocity() {
-		return xVelocity;
+		return xVelocity.get();
 	}
 
 	public void setXVelocity(int xVelocity) {
-		this.xVelocity = xVelocity;
+		this.xVelocity.set(xVelocity);
 	}
 
 	public int getYVelocity() {
-		return yVelocity;
+		return yVelocity.get();
 	}
 
 	public void setYVelocity(int yVelocity) {
-		this.yVelocity = yVelocity;
+		this.yVelocity.set(yVelocity);
 	}
 
 	public Ellipse2D.Double getCircle() {
-		Ellipse2D.Double circle = new Ellipse2D.Double(x, y, diameter, diameter);
+		Ellipse2D.Double circle = new Ellipse2D.Double(x.get(), y.get(), diameter, diameter);
 		return circle;
+	}
+	
+	public String toString() {
+		return "xVelocity: " + getXVelocity() + " yVelocity: "  + getYVelocity() + " Position: (" + getX() + "," + getY() + ")";
 	}
 }
