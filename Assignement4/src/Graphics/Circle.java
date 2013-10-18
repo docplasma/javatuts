@@ -86,8 +86,12 @@ public class Circle extends JPanel {
 		x.set(x.get() + xVelocity.get());
 		y.set(y.get() + yVelocity.get());
 		
-		positionOutOfBounds(x, xVelocity, xStart, xEnd);
-		positionOutOfBounds(y, yVelocity, yStart, yEnd);
+		if (positionOutOfBounds(x, xVelocity, xStart, xEnd)) {
+			this.color = ColorPicker.getColor(new Random().nextInt(100));
+		}
+		if (positionOutOfBounds(y, yVelocity, yStart, yEnd)) {
+			this.color = ColorPicker.getColor(new Random().nextInt(100));
+		}
 	}
 
 	//-----Getters/Setters
