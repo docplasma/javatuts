@@ -4,10 +4,14 @@ import java.awt.Color;
 
 public class ColorPicker {
 
+	//-----Constructors
 	ColorPicker () {
 		
 	}
 	
+	//-----Methods
+	
+	//Returns a random color based off a random number
 	public static Color getColor(int num) {
 		Color color = new Color(0);
 		num = num % 9;

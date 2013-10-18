@@ -4,9 +4,11 @@ import javax.swing.SwingWorker;
 
 public class CircleLoadWorker extends SwingWorker<Circle, Object> {
 
+	//-----Data Members
 	private Circle circle;
 	private int xStart, xEnd, yStart, yEnd; //Frame Bounds
 
+	//-----Constructors
 	public CircleLoadWorker() {
 		
 		circle = new Circle();
@@ -18,6 +20,7 @@ public class CircleLoadWorker extends SwingWorker<Circle, Object> {
 		
 	}
 	
+	//This is the constructor that is currently used for this assignment
 	public CircleLoadWorker(Circle circle, int xEnd, int yEnd) {
 		
 		
@@ -41,6 +44,7 @@ public class CircleLoadWorker extends SwingWorker<Circle, Object> {
 		
 	}
 	
+	//This method is called once the thread manager forks a new thread, this thread calls the for the circle to update its position
 	@Override
 	protected Circle doInBackground() throws Exception {
 		

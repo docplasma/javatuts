@@ -10,6 +10,7 @@ import javax.swing.JPanel;
 
 public class Circle extends JPanel {
 
+	//-----Data Members
 	private int diameter;
 	private AtomicInteger x;
 	private AtomicInteger y;
@@ -18,6 +19,7 @@ public class Circle extends JPanel {
 	private AtomicInteger yVelocity;
 	Random rand;
 	
+	//-----Constructors
 	public Circle() {
 		
 		Random rand = new Random();
@@ -30,29 +32,37 @@ public class Circle extends JPanel {
 				
 	}
 	
-public Circle(int xLimit, int yLimit) {
+	//This is the constructors that is used in this assignment
+	public Circle(int xLimit, int yLimit) {
 		
 		Random rand = new Random();
-		int scaledDiameter = (int)Math.floor(xLimit * yLimit * 0.0001);
+		
+		//Data is initialized
 		x = new AtomicInteger();
 		y = new AtomicInteger();
 		xVelocity = new AtomicInteger();
 		yVelocity = new AtomicInteger();
-		diameter = rand.nextInt(25)+10;
+		
+		//Diameter is set based on the size of the panel
+		diameter = rand.nextInt((int)Math.floor(xLimit * yLimit * 0.0001))+10;
+		
+		//Position is set, but not outside the borders of the panel
 		x.set(rand.nextInt(xLimit-diameter));
 		y.set(rand.nextInt(yLimit-diameter));
+		
+		//Color is randomly retrieved based of the input of a random number
 		color = ColorPicker.getColor(rand.nextInt(100));
+		
+		//Velocity is set from a range of -10px to 10px per iteration
 		xVelocity.set(rand.nextInt(20)-10);
 		yVelocity.set(rand.nextInt(20)-10);
 				
 	}
 	
 	//-----Methods
-	public void draw (Graphics page) {
-		page.setColor(color);
-		page.fillOval(x.get(), y.get(), diameter, diameter);
-	}
 	
+	//This method checks if the ball is out of bounds of the panel
+	//--If it is out of bounds, then it inverts the velocity and reflects the position off the edge of the panel
 	private boolean positionOutOfBounds(AtomicInteger pos, AtomicInteger velocity,  int start, int end) {
 		
 		if (pos.get() < start) {
@@ -69,6 +79,8 @@ public Circle(int xLimit, int yLimit) {
 		return false;
 	}
 	
+	//This method is called to change the position of the ball based on its velocity
+	//--It then calls positionOutOfBounds to check if it is outside the panel
 	public void updatePosition(int xStart, int xEnd, int yStart, int yEnd) {
 		
 		x.set(x.get() + xVelocity.get());
@@ -79,27 +91,27 @@ public Circle(int xLimit, int yLimit) {
 	}
 
 	//-----Getters/Setters
-	public synchronized int getDiameter() {
+	public int getDiameter() {
 		return diameter;
 	}
 
-	public synchronized void setDiameter(int diameter) {
+	public void setDiameter(int diameter) {
 		this.diameter = diameter;
 	}
 
-	public synchronized int getX() {
+	public int getX() {
 		return x.get();
 	}
 
-	public synchronized void setX(int x) {
+	public void setX(int x) {
 		this.x.set(x);
 	}
 
-	public synchronized int getY() {
+	public int getY() {
 		return y.get();
 	}
 
-	public synchronized void setY(int y) {
+	public void setY(int y) {
 		this.y.set(y);
 	}
 
@@ -111,25 +123,20 @@ public Circle(int xLimit, int yLimit) {
 		this.color = color;
 	}
 
-	public synchronized int getXVelocity() {
+	public int getXVelocity() {
 		return xVelocity.get();
 	}
 
-	public synchronized void setXVelocity(int xVelocity) {
+	public void setXVelocity(int xVelocity) {
 		this.xVelocity.set(xVelocity);
 	}
 
-	public synchronized int getYVelocity() {
+	public int getYVelocity() {
 		return yVelocity.get();
 	}
 
-	public synchronized void setYVelocity(int yVelocity) {
+	public void setYVelocity(int yVelocity) {
 		this.yVelocity.set(yVelocity);
-	}
-
-	public Ellipse2D.Double getCircle() {
-		Ellipse2D.Double circle = new Ellipse2D.Double(x.get(), y.get(), diameter, diameter);
-		return circle;
 	}
 	
 	public String toString() {
