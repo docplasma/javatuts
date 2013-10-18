@@ -33,14 +33,14 @@ public class Circle extends JPanel {
 public Circle(int xLimit, int yLimit) {
 		
 		Random rand = new Random();
-		int scaledDiameter = (int)Math.floor(xLimit * yLimit * 0.001);
+		int scaledDiameter = (int)Math.floor(xLimit * yLimit * 0.0001);
 		x = new AtomicInteger();
 		y = new AtomicInteger();
 		xVelocity = new AtomicInteger();
 		yVelocity = new AtomicInteger();
-		diameter = rand.nextInt(scaledDiameter);
-		x.set(rand.nextInt(xLimit));
-		y.set(rand.nextInt(yLimit));
+		diameter = rand.nextInt(25)+10;
+		x.set(rand.nextInt(xLimit-diameter));
+		y.set(rand.nextInt(yLimit-diameter));
 		color = ColorPicker.getColor(rand.nextInt(100));
 		xVelocity.set(rand.nextInt(20)-10);
 		yVelocity.set(rand.nextInt(20)-10);
@@ -61,7 +61,7 @@ public Circle(int xLimit, int yLimit) {
 			return true;
 		}
 		else if (pos.get() + diameter > end) {
-			pos.set(pos.get() * 2 - end);
+			pos.set(pos.get() + end - (pos.get() + diameter));
 			velocity.set(velocity.get() * -1);
 			return true;
 		}
@@ -79,27 +79,27 @@ public Circle(int xLimit, int yLimit) {
 	}
 
 	//-----Getters/Setters
-	public int getDiameter() {
+	public synchronized int getDiameter() {
 		return diameter;
 	}
 
-	public void setDiameter(int diameter) {
+	public synchronized void setDiameter(int diameter) {
 		this.diameter = diameter;
 	}
 
-	public int getX() {
+	public synchronized int getX() {
 		return x.get();
 	}
 
-	public void setX(int x) {
+	public synchronized void setX(int x) {
 		this.x.set(x);
 	}
 
-	public int getY() {
+	public synchronized int getY() {
 		return y.get();
 	}
 
-	public void setY(int y) {
+	public synchronized void setY(int y) {
 		this.y.set(y);
 	}
 
@@ -111,19 +111,19 @@ public Circle(int xLimit, int yLimit) {
 		this.color = color;
 	}
 
-	public int getXVelocity() {
+	public synchronized int getXVelocity() {
 		return xVelocity.get();
 	}
 
-	public void setXVelocity(int xVelocity) {
+	public synchronized void setXVelocity(int xVelocity) {
 		this.xVelocity.set(xVelocity);
 	}
 
-	public int getYVelocity() {
+	public synchronized int getYVelocity() {
 		return yVelocity.get();
 	}
 
-	public void setYVelocity(int yVelocity) {
+	public synchronized void setYVelocity(int yVelocity) {
 		this.yVelocity.set(yVelocity);
 	}
 
