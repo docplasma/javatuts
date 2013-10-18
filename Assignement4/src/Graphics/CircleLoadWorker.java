@@ -44,17 +44,7 @@ public class CircleLoadWorker extends SwingWorker<Circle, Object> {
 	@Override
 	protected Circle doInBackground() throws Exception {
 		
-		while (true) {
-			circle.updatePosition(xStart, xEnd, yStart, yEnd);
-			Thread.sleep(500);
-		}
+		circle.updatePosition(xStart, xEnd, yStart, yEnd);
+		return circle;
 	}
-	
-	@Override
-	protected void done() {
-		
-		//TODO call paint funciton
-	}
-	
-	
 }
