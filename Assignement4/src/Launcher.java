@@ -75,7 +75,7 @@ public class Launcher {
 			//Repaints the panel with the updated position of each ball
 			panel.repaint();
 			
-			//Outpus to the console statistics of each ball
+			//Outputs to the console statistics of each ball
 			System.out.println(circle1);
 			System.out.println(circle2);
 			System.out.println(circle3);
